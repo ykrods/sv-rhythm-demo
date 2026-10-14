@@ -4,10 +4,25 @@
 see README.md
 
 ## Commands
-- 依存関係のインストール: `bun install`
-- 開発サーバの起動: `bun run dev`
-- 型チェック: `bun run check`
-- ビルド: `bun run build`
+- 依存関係のインストール: `npm install`
+- 開発サーバの起動: `npm run dev`
+- 型チェック: `npm run check`
+- ビルド: `npm run build`
+
+### スクリーンショットの取得手順
+`npm run dev` を起動した状態で、プロジェクトのルートで以下を実行する。
+
+```sh
+npx playwright-cli open http://localhost:5173/
+npx playwright-cli resize 390 844
+npx playwright-cli screenshot --filename=screenshots/390x844.png
+# サイズごとに resize / screenshot を繰り返す
+npx playwright-cli close
+```
+
+- 確認に使う主なサイズ: 360×640、390×844、844×390、1280×720
+- 取得した画像は agent が読み込んで確認する
+- playwright-cli の詳しい使い方は `.claude/skills/playwright-cli/SKILL.md` を参照する（コマンドは `npx playwright-cli` として実行する）
 
 ## Workflow
 Spec-Driven Development を原則とし、実装時には具体的には以下のルールに従う。
@@ -39,7 +54,8 @@ Spec-Driven Development を原則とし、実装時には具体的には以下�
 
 5. 実装完了後、agent は検証を行いユーザに報告する
 
-   - `bun run check` および `bun run build` が通ることを確認する
+   - `npm run check` および `npm run build` が通ることを確認する
+   - 画面やUIの実装時はブラウザのスクリーンショットを取得し、表示内容を確認する
    - 変更したファイルの概要、notes.md に追記した内容、未解決の事項をユーザに報告する
 
 6. ユーザが動作確認・コードレビューを行う
@@ -76,9 +92,12 @@ docs/
 ```
 
 ## Git
-- agent は commit 操作をしてはいけない。commit は人間が行う。
+- agent は git 操作を行わない。必要な場合はユーザに操作を依頼する。
 
 ## Boundaries (制限事項)
 - agent はユーザの指示なしに plan.md を作成しない
 - 作業計画(plan.mdの作成)の指示があった場合、plan.md がユーザに承認され、実装指示が出るまで実装を開始しない
 - requirements.md / plan.md の範囲外の変更を行わない（必要と判断した場合はユーザに提案する）
+
+## skills
+- .claude/skilss/playwright-cli: `npx playwright-cli install --skill` で取得したので、編集しないようにする
