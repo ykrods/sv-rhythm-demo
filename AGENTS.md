@@ -5,12 +5,12 @@ see README.md
 
 ## Commands
 - 依存関係のインストール: `npm install`
-- 開発サーバの起動: `npm run dev`
+- 開発サーバの起動: `npm run dev -- --host`
 - 型チェック: `npm run check`
 - ビルド: `npm run build`
 
 ### スクリーンショットの取得手順
-`npm run dev` を起動した状態で、プロジェクトのルートで以下を実行する。
+`npm run dev -- --host` を起動した状態で、プロジェクトのルートで以下を実行する。
 
 ```sh
 npx playwright-cli open http://localhost:5173/
@@ -100,4 +100,4 @@ docs/
 - requirements.md / plan.md の範囲外の変更を行わない（必要と判断した場合はユーザに提案する）
 
 ## skills
-- .claude/skilss/playwright-cli: `npx playwright-cli install --skill` で取得したので、編集しないようにする
+- .claude/skills/playwright-cli: `npx playwright-cli install --skill` で取得したので、編集しないようにする
