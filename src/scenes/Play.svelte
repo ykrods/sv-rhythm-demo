@@ -3,6 +3,7 @@
 </script>
 
 <svg viewBox="0 0 {STAGE_WIDTH} {STAGE_HEIGHT}">
+  <title>Scene: Play</title>
   <rect width={STAGE_WIDTH} height={STAGE_HEIGHT} fill="#3a1d53" />
   <rect
     x="2"
