@@ -9,6 +9,7 @@ see README.md
 - 型チェック: `npm run check`
 - ビルド: `npm run build`
 - lint: `npm run lint`
+- テスト: `npm run test`
 
 ### スクリーンショットの取得手順
 `npm run dev -- --host` を起動した状態で、プロジェクトのルートで以下を実行する。
