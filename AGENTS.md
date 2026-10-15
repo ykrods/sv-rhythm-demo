@@ -8,6 +8,7 @@ see README.md
 - 開発サーバの起動: `npm run dev -- --host`
 - 型チェック: `npm run check`
 - ビルド: `npm run build`
+- lint: `npm run lint`
 
 ### スクリーンショットの取得手順
 `npm run dev -- --host` を起動した状態で、プロジェクトのルートで以下を実行する。
