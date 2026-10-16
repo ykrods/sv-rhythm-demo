@@ -85,11 +85,11 @@ Spec-Driven Development を原則とし、実装時には具体的には以下�
 docs/
   + proposal.md  # プロジェクトの目的・スコープ・全体要件
   + architecture.md  # プロジェクトの基本的な設計
-  + glossary.md  # 用語集
+  + glossary.md  # 用語集（プロジェクト固有の概念ソースコードに現れる用語、またはそれらが表す概念のみ）
   + spec/  # 仕様
     + ${feature_name}.md # 機能ごとの仕様、実装前に記述されたタスク内容がここに反映される
   + decisions/   # ADR: アーキテクチャについての検討内容を記録したもの
-    + 001-xxx.md  
+    + 001-xxx.md
   + tasks/ # 個別作業
 ```
 
