@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
     "lint": "biome lint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check-deps": "node scripts/check-deps.ts",
+    "verify": "node scripts/verify.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",

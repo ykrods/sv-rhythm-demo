@@ -10,6 +10,8 @@ see README.md
 - ビルド: `npm run build`
 - lint: `npm run lint`
 - テスト: `npm run test`
+- 依存パッケージ数の確認: `npm run check-deps`
+- 一括チェック（build・check・test・lint・check-deps）: `npm run verify`
 
 ### スクリーンショットの取得手順
 `npm run dev -- --host` を起動した状態で、プロジェクトのルートで以下を実行する。
@@ -56,7 +58,7 @@ Spec-Driven Development を原則とし、実装時には具体的には以下�
 
 5. 実装完了後、agent は検証を行いユーザに報告する
 
-   - `npm run check` および `npm run build` が通ることを確認する
+   - Health Check（C1〜C6、task scope）を実行する（「Health Check」の節を参照）
    - 画面やUIの実装時はブラウザのスクリーンショットを取得し、表示内容を確認する
    - 変更したファイルの概要、notes.md に追記した内容、未解決の事項をユーザに報告する
 
@@ -70,8 +72,21 @@ Spec-Driven Development を原則とし、実装時には具体的には以下�
    - plan.md / notes.md で追加・変更されたモデル（用語、概念）や設計上の決定を、タスクディレクトリ外の docs/ 以下のドキュメントに反映する
    - 以降の作業では、docs/tasks/ 以下を遡らなくても docs/ 以下のドキュメントで現在の仕様・設計が把握できる状態を保つ
    - アーキテクチャ上の重要な意思決定・設計判断が含まれる場合、decisions/ 以下に判断理由を含めて記録を残す
+   - ドキュメント反映後、Health Check（C6・C7、project scope）を実行し、結果をユーザに報告する
 
 8. ユーザがドキュメントを含めて全体確認し、問題がなければ commit する
+
+## Health Check
+- プロジェクトの健全性チェック（C1〜C7）の定義・scope・実行手順は `.claude/skills/health-check/SKILL.md` にまとめる
+- 呼び出し元ごとに以下を実行する
+
+| 呼び出し元 | 実行するチェック | scope | 結果の出し先 |
+|---|---|---|---|
+| Workflow 5（実装後） | C1–C6 | task | ユーザへの報告 |
+| Workflow 7（docs 反映後） | C6, C7 | project | ユーザへの報告 |
+| ユーザの指示（単独実行） | 指定がなければ全部 | 指定がなければ project | 会話内で報告 |
+
+- 指摘はすべてユーザに報告し、対応はユーザが決める（チェック中に修正は行わない）
 
 ## docs
 - そのタスクによりドキュメントが変更される場合を除いて、docs 以下の内容と矛盾が無いように実装する
@@ -86,6 +101,7 @@ docs/
   + proposal.md  # プロジェクトの目的・スコープ・全体要件
   + architecture.md  # プロジェクトの基本的な設計
   + glossary.md  # 用語集（プロジェクト固有の概念ソースコードに現れる用語、またはそれらが表す概念のみ）
+  + coding-guidelines.md  # コーディング規約（lint で表現できないもの）
   + spec/  # 仕様
     + ${feature_name}.md # 機能ごとの仕様、実装前に記述されたタスク内容がここに反映される
   + decisions/   # ADR: アーキテクチャについての検討内容を記録したもの
@@ -94,7 +110,7 @@ docs/
 ```
 
 ## Git
-- agent は git 操作を行わない。必要な場合はユーザに操作を依頼する。
+- agent は git 操作を行わない。ただし、読み取り専用の `git status` / `git diff` は実行してよい。それ以外が必要な場合はユーザに操作を依頼する。
 
 ## Boundaries (制限事項)
 - agent はユーザの指示なしに plan.md を作成しない
