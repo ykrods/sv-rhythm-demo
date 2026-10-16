@@ -35,6 +35,8 @@ App.svelte
 - 外部パッケージの数はなるべく少なくする
 - 推移的な依存を含めて 30 以上のパッケージに依存するパッケージは使わない（devDependencies も対象とする）
   - peerDependencies は、プロジェクトが直接依存するパッケージとして別に数えるため含めない
+- `npm run check-deps` で確認する
+  - インストール済みのパッケージ（`node_modules/.package-lock.json`）を数える。ルートの `package-lock.json` には他のプラットフォーム用のバイナリなど、インストールされない optional な依存も含まれ、件数が実態より多くなるため
 
 ## テスト
 - テストには Vitest を使い、`npm run test` で実行する
@@ -43,3 +45,11 @@ App.svelte
 - テストファイルは `tests/` 以下に、テスト対象とパスを揃えて置く
   - 例: `src/lib/judge.ts` のテストは `tests/lib/judge.test.ts`
 - テストファイルも型チェック（`npm run check`）と lint（`npm run lint`）の対象とする
+
+## 開発用スクリプト
+- 開発用のスクリプト（`npm run verify` / `npm run check-deps` など）は `scripts/` に置く
+- TypeScript で書き、Node で直接実行する（例: `node scripts/verify.ts`）
+  - 型の除去による実行のため Node 22.18 / 23.6 以降が必要。`tsconfig.node.json` の `erasableSyntaxOnly` の範囲で書く
+  - 外部パッケージは使わず、Node の標準モジュールのみで書く
+- 型チェックは `tsconfig.node.json`、lint は `biome.json` の対象に含める
+- テストの対象にはしない
