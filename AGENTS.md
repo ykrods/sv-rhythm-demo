@@ -98,7 +98,7 @@ Spec-Driven Development を原則とし、実装時には具体的には以下�
 
 ```
 docs/
-  + proposal.md  # プロジェクトの目的・スコープ・全体要件
+  + proposal.md  # プロジェクトの目的・スコープ・全体要件（初期の計画。以降の docs と矛盾してもよく、矛盾する場合は他の docs を優先する）
   + architecture.md  # プロジェクトの基本的な設計
   + glossary.md  # 用語集（プロジェクト固有の概念ソースコードに現れる用語、またはそれらが表す概念のみ）
   + coding-guidelines.md  # コーディング規約（lint で表現できないもの）
