@@ -5,7 +5,8 @@
 ## 論理座標
 - Scene の SVG は viewBox `0 0 360 640`（9:16）で描画する
   - 理由: 1 単位がスマホの CSS px とほぼ一致し、フォントサイズや線幅を直感的に指定できる。また 5 レーンで割り切れる（レーン幅 72）
-- 値は `src/lib/stage.ts` の `STAGE_WIDTH` / `STAGE_HEIGHT` で定義する
+- 値は Scene の論理座標上のサイズとして `src/lib/scene.ts` の `SCENE_WIDTH` / `SCENE_HEIGHT` で定義する
+- ゲーム内で html 要素を表示する場合（現状未実装）、その要素の配置に論理座標は使わない
 
 ## Stage の配置
 - `html`, `body`, `#app` を表示領域いっぱい（高さは `100dvh`）にし、Stage を上下左右中央に配置する

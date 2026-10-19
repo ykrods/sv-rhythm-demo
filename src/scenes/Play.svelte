@@ -1,22 +1,22 @@
 <script lang="ts">
-  import { STAGE_WIDTH, STAGE_HEIGHT } from '../lib/stage';
+  import { SCENE_WIDTH, SCENE_HEIGHT } from '../lib/scene';
 </script>
 
-<svg viewBox="0 0 {STAGE_WIDTH} {STAGE_HEIGHT}">
+<svg viewBox="0 0 {SCENE_WIDTH} {SCENE_HEIGHT}">
   <title>Scene: Play</title>
-  <rect width={STAGE_WIDTH} height={STAGE_HEIGHT} fill="#3a1d53" />
+  <rect width={SCENE_WIDTH} height={SCENE_HEIGHT} fill="#3a1d53" />
   <rect
     x="2"
     y="2"
-    width={STAGE_WIDTH - 4}
-    height={STAGE_HEIGHT - 4}
+    width={SCENE_WIDTH - 4}
+    height={SCENE_HEIGHT - 4}
     fill="none"
     stroke="#fff"
     stroke-width="4"
   />
   <text
-    x={STAGE_WIDTH / 2}
-    y={STAGE_HEIGHT / 2}
+    x={SCENE_WIDTH / 2}
+    y={SCENE_HEIGHT / 2}
     fill="#fff"
     font-size="32"
     text-anchor="middle"

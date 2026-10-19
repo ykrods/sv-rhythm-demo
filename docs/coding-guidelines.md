@@ -11,9 +11,8 @@ lint のルールは `biome.json`、設計方針は `docs/architecture.md` を�
 ## ファイル配置
 - Scene は `src/scenes/`、ゲームロジックは `src/lib/`、テストは `tests/` に置く
   - 詳細は `docs/architecture.md` の「コンポーネント構成」「設計方針」「テスト」を参照する
-
-## 論理座標
-- Scene 内の座標・サイズは `src/lib/stage.ts` の `STAGE_WIDTH` / `STAGE_HEIGHT` を基準にし、360 / 640 を直接書かない
+- 複数のファイルから参照される定数は `src/lib/` に置く（例: `src/lib/scene.ts` の `SCENE_WIDTH` / `SCENE_HEIGHT`）
+  - 1 つのファイルでしか使わない定数は、そのファイル内に定義する
 
 ## スタイル
 - コンポーネント固有のスタイルはコンポーネントの `<style>` に書く
@@ -24,5 +23,5 @@ lint のルールは `biome.json`、設計方針は `docs/architecture.md` を�
   - ゲームロジックであれば、`src/lib/` の別ファイルの純粋関数として切り出す
 - ファイル（300 行）
   - Svelte コンポーネントは、レーン・ノーツなどの部品ごとに、`<g>` をルートにした子コンポーネントに分ける
-  - `src/lib/` は 1 関数 1 ファイルの方針に従って分ける
+  - `src/lib/` は 1 関数(またはクラス) 1 ファイルの方針に従って分ける。定数などは概念的なまとまりごとにファイルを分ける。
 - lint のルールを無効化（`biome-ignore`）して回避しない
