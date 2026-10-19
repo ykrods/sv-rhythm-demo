@@ -18,7 +18,6 @@
     width: min(100dvw, 100dvh * 9 / 16);
     aspect-ratio: 9 / 16;
     background: #000;
-    overflow: hidden;
     touch-action: none;
   }
 </style>
