@@ -24,4 +24,15 @@ lint のルールは `biome.json`、設計方針は `docs/architecture.md` を�
 - ファイル（300 行）
   - Svelte コンポーネントは、レーン・ノーツなどの部品ごとに、`<g>` をルートにした子コンポーネントに分ける
   - `src/lib/` は 1 関数(またはクラス) 1 ファイルの方針に従って分ける。定数などは概念的なまとまりごとにファイルを分ける。
-- lint のルールを無効化（`biome-ignore`）して回避しない
+- 行数制限を lint のルールを無効化（`biome-ignore`）によって回避しない
+
+## lint のルールの無効化
+- 原則として lint のルールに従い、`biome-ignore` で回避しない
+- 例外: 実装上の理由があってルールに反する場合に限り、`biome-ignore` を使ってよい
+  - 対象のルールを限定し、`biome-ignore <ルール名>: <理由>` の形でルールに反する理由を書く
+  - 例: SVG の中では `<button>` を使えないため、SVG の要素に `role="button"` を付ける場合
+
+    ```svelte
+    <!-- biome-ignore lint/a11y/useSemanticElements: SVG の中では <button> を使えないため -->
+    <g role="button" tabindex="0" ...>
+    ```
