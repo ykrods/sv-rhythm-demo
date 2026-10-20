@@ -1,28 +1,55 @@
 <script lang="ts">
   import { SCENE_WIDTH, SCENE_HEIGHT } from '../lib/scene';
+  import bgUrl from '../assets/bg.webp';
+  import Logo from './title/Logo.svelte';
+  import StartButton from './title/StartButton.svelte';
+
+  let { onstart }: { onstart: () => void } = $props();
+
+  // 配置（論理座標）。部品は中心を原点として描画されるため、部品の中心の位置を指定する
+  const CENTER_X = SCENE_WIDTH / 2;
+  const LOGO_Y = SCENE_HEIGHT * 0.3;
+  const BUTTON_Y = SCENE_HEIGHT * 0.65;
+  const HINT_Y = SCENE_HEIGHT * 0.75;
+
+  function handleWindowKeydown(event: KeyboardEvent) {
+    if (event.code !== 'Space') return;
+    event.preventDefault();
+    if (event.repeat) return;
+    onstart();
+  }
 </script>
+
+<svelte:window onkeydown={handleWindowKeydown} />
 
 <svg viewBox="0 0 {SCENE_WIDTH} {SCENE_HEIGHT}">
   <title>Scene: Title</title>
-  <rect width={SCENE_WIDTH} height={SCENE_HEIGHT} fill="#1d2b53" />
-  <rect
-    x="2"
-    y="2"
-    width={SCENE_WIDTH - 4}
-    height={SCENE_HEIGHT - 4}
-    fill="none"
-    stroke="#fff"
-    stroke-width="4"
+
+  <!-- 画像の読み込みが終わるまでの下地 -->
+  <rect width={SCENE_WIDTH} height={SCENE_HEIGHT} fill="#0d0b2e" />
+  <image
+    href={bgUrl}
+    width={SCENE_WIDTH}
+    height={SCENE_HEIGHT}
+    preserveAspectRatio="xMidYMid slice"
   />
+
+  <g transform="translate({CENTER_X} {LOGO_Y})">
+    <Logo />
+  </g>
+  <g transform="translate({CENTER_X} {BUTTON_Y})">
+    <StartButton {onstart} />
+  </g>
   <text
-    x={SCENE_WIDTH / 2}
-    y={SCENE_HEIGHT / 2}
+    class="hint"
+    x={CENTER_X}
+    y={HINT_Y}
     fill="#fff"
-    font-size="32"
+    font-size="14"
     text-anchor="middle"
     dominant-baseline="middle"
   >
-    Title
+    Press SPACE to start
   </text>
 </svg>
 
@@ -31,5 +58,17 @@
     display: block;
     width: 100%;
     height: 100%;
+  }
+
+  /* キーボードがありそうな環境（PC）でのみ表示する */
+  .hint {
+    display: none;
+    font-family: sans-serif;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hint {
+      display: block;
+    }
   }
 </style>

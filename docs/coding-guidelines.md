@@ -1,6 +1,6 @@
 # coding guidelines
 lint（`npm run lint`）で表現できないコーディング規約。
-lint のルールは `biome.json`、設計方針は `docs/architecture.md` を参照する。
+lint のルールは `biome.json`、ファイルの配置規則や設計方針は `docs/architecture.md` を参照する。
 
 ## 全般
 - TypeScript で書く
@@ -8,9 +8,7 @@ lint のルールは `biome.json`、設計方針は `docs/architecture.md` を�
 - コメントは日本語で書く
 - import は相対パスで書く
 
-## ファイル配置
-- Scene は `src/scenes/`、ゲームロジックは `src/lib/`、テストは `tests/` に置く
-  - 詳細は `docs/architecture.md` の「コンポーネント構成」「設計方針」「テスト」を参照する
+## 共通化
 - 複数のファイルから参照される定数は `src/lib/` に置く（例: `src/lib/scene.ts` の `SCENE_WIDTH` / `SCENE_HEIGHT`）
   - 1 つのファイルでしか使わない定数は、そのファイル内に定義する
 

@@ -7,7 +7,7 @@
 
 <div class="stage">
   {#if scene === 'title'}
-    <Title />
+    <Title onstart={() => (scene = 'play')} />
   {:else if scene === 'play'}
     <Play />
   {/if}
