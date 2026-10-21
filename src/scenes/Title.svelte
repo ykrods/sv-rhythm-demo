@@ -6,7 +6,7 @@
 
   let { onstart }: { onstart: () => void } = $props();
 
-  // 配置（論理座標）。部品は中心を原点として描画されるため、部品の中心の位置を指定する
+  // 配置（論理座標）。Scene 内コンポーネントは中心を原点として描画されるため、コンポーネントの中心の位置を指定する
   const CENTER_X = SCENE_WIDTH / 2;
   const LOGO_Y = SCENE_HEIGHT * 0.3;
   const BUTTON_Y = SCENE_HEIGHT * 0.65;
