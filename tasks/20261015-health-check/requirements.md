@@ -31,7 +31,7 @@
 - 範囲（scope）の定義
   - `task`: 指定タスクの requirements.md / plan.md、変更ファイル、関連する spec を対象とする
     - 変更ファイルは `git status` / `git diff` で特定する
-  - `project`: docs/ 全体（docs/tasks/ を除く）と src/・tests/ 全体を対象とする
+  - `project`: docs/ 全体と src/・tests/ 全体を対象とする
     - C6 の照合元は docs/spec のみとする（requirements.md / plan.md は対象外）
 - 実行ルール
   - チェック中にソース・ドキュメントの修正は行わない（修正はユーザの指示を受けてから行う）

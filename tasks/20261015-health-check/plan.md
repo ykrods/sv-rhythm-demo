@@ -26,7 +26,7 @@ SKILL.md に以下の内容で記述する。
 | C4 | コーディング規約に従っている | `npm run lint`、`docs/coding-guidelines.md`、`docs/architecture.md` の「設計方針」 | lint の結果。lint で表現できない規約（ファイル配置、ロジックの分離、論理座標の定数の使用など） | lint の違反がある場合。規約に反するコードがある場合 |
 | C5 | 依存パッケージの制約に従っている | `npm run check-deps`、`docs/architecture.md` の「依存パッケージ」 | 直接依存しているパッケージごとの推移的な依存数 | 30 以上のパッケージがある場合 |
 | C6 | 実装と仕様に齟齬がない | task: requirements.md / plan.md / 関連する spec。project: `docs/spec/` | 仕様に書かれたことが実装されているか、実装が仕様と異なっていないか、仕様にない変更をしていないか | 未実装、仕様と異なる実装、仕様の範囲外の変更がある場合 |
-| C7 | ドキュメント間に齟齬がなく、過不足がない | `docs/`（`docs/tasks/` を除く）、`AGENTS.md` | ドキュメント同士の矛盾、ドキュメントとコードの不一致（ファイル名・定数名・値など）、`AGENTS.md` の docs 構成図と実際のファイルの一致、ソースコードに現れる固有の概念が `docs/glossary.md` にあるか | 矛盾・不一致がある場合、記述が不足している場合、実態のない記述が残っている場合 |
+| C7 | ドキュメント間に齟齬がなく、過不足がない | `docs/`、`AGENTS.md` | ドキュメント同士の矛盾、ドキュメントとコードの不一致（ファイル名・定数名・値など）、`AGENTS.md` の docs 構成図と実際のファイルの一致、ソースコードに現れる固有の概念が `docs/glossary.md` にあるか | 矛盾・不一致がある場合、記述が不足している場合、実態のない記述が残っている場合 |
 
 - C1〜C5 は npm scripts を実行してその結果で判定する。scope に関わらずプロジェクト全体を対象とする（npm scripts の対象がプロジェクト全体のため）
 - C4 の判断部分・C6・C7 は scope に応じて対象のファイルを読んで判断する
@@ -34,10 +34,10 @@ SKILL.md に以下の内容で記述する。
 
 ### scope
 - `task`: `task=<タスクディレクトリ名>` で指定する（例: `task=20261015-health-check`）
-  - 対象: `docs/tasks/<タスク>/` の requirements.md / plan.md（存在する場合）、変更ファイル、関連する spec
+  - 対象: `tasks/<タスク>/` の requirements.md / plan.md（存在する場合）、変更ファイル、関連する spec
   - 変更ファイルは `git status` / `git diff` で特定する（未追跡のファイルも含める）
   - 関連する spec は、requirements.md / plan.md から参照されている spec と、変更ファイルが該当する機能の spec とする
-- `project`: `docs/`（`docs/tasks/` を除く）と `src/`・`tests/` を対象とする
+- `project`: `docs/` と `src/`・`tests/` を対象とする
   - C6 の照合元は `docs/spec/` のみとする
 
 ### 実行ルール

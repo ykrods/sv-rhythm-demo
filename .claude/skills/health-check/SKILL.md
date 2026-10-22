@@ -20,10 +20,10 @@ argument-hint: "[C1,C2,...] [task=<タスクディレクトリ名> | project]"
 
 ## scope
 - `task`: 指定したタスクに関係する範囲を対象とする
-  - `docs/tasks/<タスク>/` の requirements.md / plan.md（存在する場合）
+  - `tasks/<タスク>/` の requirements.md / plan.md（存在する場合）
   - 変更ファイル: `git status` / `git diff` で特定する（未追跡のファイルも含める）
   - 関連する spec: requirements.md / plan.md から参照されている spec と、変更ファイルが該当する機能の spec
-- `project`: `docs/`（`docs/tasks/` を除く）と `src/`・`tests/` を対象とする
+- `project`: `docs/` と `src/`・`tests/` を対象とする
   - C6 の照合元は `docs/spec/` のみとする
 
 C1〜C5 は npm scripts の結果で判定するため、scope に関わらずプロジェクト全体が対象になる。
@@ -39,7 +39,7 @@ scope は C4 の判断部分と C6・C7 の対象を決める。
 | C4 | コーディング規約に従っている | `npm run lint`、`docs/coding-guidelines.md`、`docs/architecture.md` の「設計方針」 | lint の結果。lint で表現できない規約（ファイル配置、ロジックの分離など） | lint の違反がある場合。規約に反するコードがある場合 |
 | C5 | 依存パッケージの制約に従っている | `npm run check-deps`、`docs/architecture.md` の「依存パッケージ」 | 直接依存しているパッケージごとの推移的な依存数 | 30 以上のパッケージがある場合 |
 | C6 | 実装と仕様に齟齬がない | task: requirements.md / plan.md / 関連する spec。project: `docs/spec/` | 仕様に書かれたことが実装されているか、実装が仕様と異なっていないか、仕様にない変更をしていないか | 未実装、仕様と異なる実装、仕様の範囲外の変更がある場合 |
-| C7 | ドキュメント間に齟齬がなく、過不足がない | `docs/`（`docs/tasks/` を除く）、`AGENTS.md` | ドキュメント同士の矛盾、ドキュメントとコードの不一致（ファイル名・定数名・値など）、`AGENTS.md` の docs 構成図と実際のファイルの一致、ソースコードに現れる固有の概念が `docs/glossary.md` にあるか | 矛盾・不一致がある場合、記述が不足している場合、実態のない記述が残っている場合 |
+| C7 | ドキュメントの整合性 | `docs/`、`AGENTS.md`、`src/`・`tests/` | ドキュメント同士の矛盾、ドキュメントとコードの不一致（ファイル名・定数名・値など）、`docs/index.md` の構成図と実際のファイルの一致、`docs/glossary.md` に記載済みの用語がコード上の概念・用語と矛盾しないこと | 矛盾・不一致がある場合、記述が不足している場合、実態のない記述が残っている場合 |
 
 - C7 では `docs/proposal.md` を初期の計画として扱い、他のドキュメント・コードとの矛盾は指摘しない
 - C4 の判断部分の対象は、`project` scope では `src/` と `tests/`、`task` scope では変更ファイルのうち `src/` と `tests/` 以下のもの

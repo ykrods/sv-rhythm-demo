@@ -1,7 +1,7 @@
 # 001: Scene の切り替えはコールバック prop で App に通知する
 
 - 日付: 2026-10-20
-- 関連タスク: `docs/tasks/20261019-title-scene/`
+- 関連タスク: `tasks/20261019-title-scene/`
 
 ## 背景
 開始画面（Title）のスタートボタン・Space キーで、ゲーム画面（Play）に遷移する必要がある。
