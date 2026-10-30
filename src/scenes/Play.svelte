@@ -1,29 +1,32 @@
 <script lang="ts">
   import { SCENE_WIDTH, SCENE_HEIGHT } from '../lib/scene';
+  import { JUDGEMENT_BAR_Y } from '../lib/lane';
+  import bgUrl from '../assets/bg.webp';
+  import Lanes from './play/Lanes.svelte';
+  import JudgementBar from './play/JudgementBar.svelte';
+
+  // 配置（論理座標）。レーンは判定バーの中央を原点として描画されるため、判定バーと同じ位置を指定する
+  const CENTER_X = SCENE_WIDTH / 2;
 </script>
 
 <svg viewBox="0 0 {SCENE_WIDTH} {SCENE_HEIGHT}">
   <title>Scene: Play</title>
-  <rect width={SCENE_WIDTH} height={SCENE_HEIGHT} fill="#3a1d53" />
-  <rect
-    x="2"
-    y="2"
-    width={SCENE_WIDTH - 4}
-    height={SCENE_HEIGHT - 4}
-    fill="none"
-    stroke="#fff"
-    stroke-width="4"
+
+  <!-- 画像の読み込みが終わるまでの下地 -->
+  <rect width={SCENE_WIDTH} height={SCENE_HEIGHT} fill="#0d0b2e" />
+  <image
+    href={bgUrl}
+    width={SCENE_WIDTH}
+    height={SCENE_HEIGHT}
+    preserveAspectRatio="xMidYMid slice"
   />
-  <text
-    x={SCENE_WIDTH / 2}
-    y={SCENE_HEIGHT / 2}
-    fill="#fff"
-    font-size="32"
-    text-anchor="middle"
-    dominant-baseline="middle"
-  >
-    Play
-  </text>
+
+  <g transform="translate({CENTER_X} {JUDGEMENT_BAR_Y})">
+    <Lanes />
+  </g>
+  <g transform="translate({CENTER_X} {JUDGEMENT_BAR_Y})">
+    <JudgementBar />
+  </g>
 </svg>
 
 <style>
