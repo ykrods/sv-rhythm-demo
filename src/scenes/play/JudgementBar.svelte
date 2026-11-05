@@ -19,6 +19,7 @@
       height={GLOW_MARGIN * 2}
     >
       <feGaussianBlur stdDeviation="4" result="blur" />
+      <!-- 発光を強くするため、ぼかしを 2 回重ねる -->
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="blur" />

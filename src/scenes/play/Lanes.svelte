@@ -37,9 +37,9 @@
 <g>
   <defs>
     <filter id="play-lanes-glow" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feGaussianBlur stdDeviation="2" />
       <feMerge>
-        <feMergeNode in="blur" />
+        <feMergeNode />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
