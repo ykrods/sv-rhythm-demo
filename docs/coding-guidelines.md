@@ -12,6 +12,10 @@ lint のルールは `biome.json`、ファイルの配置規則や設計方針�
 - 複数のファイルから参照される定数は `src/lib/` に置く（例: `src/lib/scene.ts` の `SCENE_WIDTH` / `SCENE_HEIGHT`）
   - 1 つのファイルでしか使わない定数は、そのファイル内に定義する
 
+## TypeScript の型
+- 型は原則的に `src/types.ts` に記載し、import して利用する
+- 例外として、glossary に記載がなく、実装上の都合で必要となるような型は `src/types.ts` 外で定義しても良いものとする
+
 ## スタイル
 - コンポーネント固有のスタイルはコンポーネントの `<style>` に書く
 - 全体に関わるスタイルは `src/app.css` に書く

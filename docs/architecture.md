@@ -6,16 +6,22 @@
 ## ファイル配置
 ```
 index.html     # エントリの HTML（Web フォントの読み込みもここで行う）
+docs/          # ドキュメント
+public/        # favicon など、ts から import しない静的ファイルを配置する
 src/
   + main.ts      # App を #app にマウントする
   + App.svelte   # Stage と、現在の Scene の切り替え
   + app.css      # 全体に関わるスタイル
+  + types.ts     # 型定義
   + assets/      # 画像などの素材（コンポーネントから import して使う）
   + lib/         #  ゲーム内ロジック、複数のファイルから参照される定数
   + scenes/      # Scene コンポーネントを配置する
     + <Scene 名のスネークケース>/  # Scene ごとに固有のコンポーネント
+tasks/   # AIエージェントへの指示
 tests/   # テスト
 scripts/ # 開発用スクリプト
+screenshots/ # AIエージェントの作業確認用のスクリーンショット
+tmp/         # 一時的なファイル（AIエージェントは明示的な指示がない限りこのディレクトリは参照不要）
 ```
 
 ## 画面レイアウト
