@@ -37,6 +37,7 @@ App.svelte
   - App は現在の Scene を表す状態 `scene: 'title' | 'play'` を持ち、`{#if}` で表示する Scene を切り替える
   - Scene は「開始」などのイベントをコールバック prop（例: Title の `onstart`）で App に通知し、App が `scene` を書き換えて Scene を切り替える
   - Scene は他の Scene を直接参照しない（遷移先は App が決める）
+  - Scene 切り替え時にワイプのトランジション効果を用いる。詳細は `docs/spec/scene-transition.md` を参照する
   - 判断の経緯は `docs/decisions/001-scene-transition.md` を参照
 - `<svg>` 要素は各 Scene コンポーネントが持つ
   - 理由: Scene ごとに HTML と SVG を選択できるようにするため（例: リザルトのポップアップを HTML で作る余地を残す）
