@@ -17,6 +17,7 @@ docs/
   + glossary.md      # 用語集（プロジェクト固有の概念、ソースコードに現れる用語、またはそれらが表す概念のみ）
   + coding-guidelines.md  # コーディング規約（lint で表現できないもの）
   + spec/                 # 仕様
+    + common.md           # アプリケーション全体に共通する挙動の仕様（Scene の切り替えなど）
     + <feature_name>.md   # 機能ごとの外部仕様
   + decisions/              # ADR: アーキテクチャについての検討内容を記録したもの
     + <num>-<short-name>.md # 例: 001-scene-transition.md など、連番とタイトルを短い英語で表す。トレードオフを伴う意思決定について判断理由を含めて記録する。
