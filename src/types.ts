@@ -10,3 +10,6 @@ export type Track = {
   /** 再生のディレイ時間(ms) */
   leadIn: number;
 };
+
+/** Scene（Stage 上に表示される画面の単位）の識別子 */
+export type SceneId = 'title' | 'play';

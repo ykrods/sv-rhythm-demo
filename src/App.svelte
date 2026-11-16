@@ -2,9 +2,9 @@
   import { fade } from 'svelte/transition';
   import Title from './scenes/Title.svelte';
   import Play from './scenes/Play.svelte';
-  import type { Track } from './types';
+  import type { SceneId, Track } from './types';
 
-  let scene: 'title' | 'play' = $state('title');
+  let scene: SceneId = $state('title');
   // AudioContext などを深いリアクティブにする必要はないため $state.raw とする
   let track: Track | undefined = $state.raw();
 
