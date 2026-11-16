@@ -4,6 +4,28 @@
   import bgUrl from '../assets/bg.webp';
   import Lanes from './play/Lanes.svelte';
   import JudgementBar from './play/JudgementBar.svelte';
+  import { toAudioTime } from '../lib/toAudioTime';
+  import type { Track } from '../types';
+
+  let { track }: { track: Track } = $props();
+
+  // 音声の先頭を 0 とする再生位置(ms)。leadIn の間は負の値になる
+  let audioTime = $state<number>();
+
+  $effect(() => {
+    let frameId = 0;
+    const update = () => {
+      audioTime = toAudioTime(track.audioContext.currentTime, track.leadIn);
+      frameId = requestAnimationFrame(update);
+    };
+    frameId = requestAnimationFrame(update);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      // コンテキスト上のノードはすべて停止するため、source.stop() は呼ばない
+      void track.audioContext.close();
+    };
+  });
 
   // 配置（論理座標）。レーンは判定バーの中央を原点として描画されるため、判定バーと同じ位置を指定する
   const CENTER_X = SCENE_WIDTH / 2;
@@ -27,6 +49,13 @@
   <g transform="translate({CENTER_X} {JUDGEMENT_BAR_Y})">
     <JudgementBar />
   </g>
+
+  <!-- 開発時のみ、再生位置の確認用に表示する -->
+  {#if import.meta.env.DEV && audioTime !== undefined}
+    <text class="debug" x="8" y="16" fill="#fff" font-size="12">
+      audioTime: {Math.round(audioTime)} ms
+    </text>
+  {/if}
 </svg>
 
 <style>
@@ -34,5 +63,9 @@
     display: block;
     width: 100%;
     height: 100%;
+  }
+
+  .debug {
+    font-family: monospace;
   }
 </style>

@@ -2,18 +2,26 @@
   import { fade } from 'svelte/transition';
   import Title from './scenes/Title.svelte';
   import Play from './scenes/Play.svelte';
+  import type { Track } from './types';
 
   let scene: 'title' | 'play' = $state('title');
+  // AudioContext などを深いリアクティブにする必要はないため $state.raw とする
+  let track: Track | undefined = $state.raw();
+
+  function handleStart(startedTrack: Track) {
+    track = startedTrack;
+    scene = 'play';
+  }
 </script>
 
 <div class="stage">
   {#if scene === 'title'}
     <div class="screen" transition:fade>
-      <Title onstart={() => (scene = 'play')} />
+      <Title onstart={handleStart} />
     </div>
-  {:else if scene === 'play'}
+  {:else if scene === 'play' && track}
     <div class="screen" transition:fade>
-      <Play />
+      <Play {track} />
     </div>
   {/if}
 </div>
