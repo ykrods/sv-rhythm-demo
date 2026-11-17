@@ -4,8 +4,8 @@
   import Logo from './title/Logo.svelte';
   import StartButton from './title/StartButton.svelte';
   import sampleUrl from '../assets/sample.mp3';
-  import { loadAudioBuffer } from '../lib/audio/loadAudioBuffer';
-  import { startTrack } from '../lib/audio/startTrack';
+  import { loadAudioBuffer } from './title/loadAudioBuffer';
+  import { startTrack } from './title/startTrack';
   import type { Track } from '../types';
 
   let { onstart }: { onstart: (track: Track) => void } = $props();

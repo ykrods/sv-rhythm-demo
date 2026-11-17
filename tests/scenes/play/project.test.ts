@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { project } from '../../src/lib/project'
+import { project } from '../../../src/scenes/play/project'
 
 describe('project', () => {
   it('判定バーの位置（d = 0）では変換されない', () => {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { toAudioTime } from '../../src/lib/toAudioTime'
+import { toAudioTime } from '../../../src/scenes/play/toAudioTime'
 
 describe('toAudioTime', () => {
   it('予約時（contextTime = 0）は -leadIn になる', () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { depthAtY } from '../../src/lib/depthAtY'
-import { project } from '../../src/lib/project'
+import { depthAtY } from '../../../src/scenes/play/depthAtY'
+import { project } from '../../../src/scenes/play/project'
 
 describe('depthAtY', () => {
   it('判定バー（y = 0）で 0、レーン上端（y = -384）で 1 になる', () => {

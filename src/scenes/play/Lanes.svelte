@@ -1,8 +1,8 @@
 <script lang="ts">
   import { SCENE_HEIGHT, SCENE_WIDTH } from '../../lib/scene';
-  import { JUDGEMENT_BAR_Y, LANE_COUNT, LANE_WIDTH } from '../../lib/lane';
-  import { project } from '../../lib/project';
-  import { depthAtY } from '../../lib/depthAtY';
+  import { JUDGEMENT_BAR_Y, LANE_COUNT, LANE_WIDTH } from './lane';
+  import { project } from './project';
+  import { depthAtY } from './depthAtY';
 
   // 奥行きのない座標での、レーン全体の左右端の x
   const LEFT = -SCENE_WIDTH / 2;

@@ -1,10 +1,10 @@
 <script lang="ts">
   import { SCENE_WIDTH, SCENE_HEIGHT } from '../lib/scene';
-  import { JUDGEMENT_BAR_Y } from '../lib/lane';
+  import { JUDGEMENT_BAR_Y } from './play/lane';
   import bgUrl from '../assets/bg.webp';
   import Lanes from './play/Lanes.svelte';
   import JudgementBar from './play/JudgementBar.svelte';
-  import { toAudioTime } from '../lib/toAudioTime';
+  import { toAudioTime } from './play/toAudioTime';
   import type { Track } from '../types';
 
   let { track }: { track: Track } = $props();

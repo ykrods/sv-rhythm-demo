@@ -1,4 +1,4 @@
-import { SCENE_HEIGHT, SCENE_WIDTH } from './scene';
+import { SCENE_HEIGHT, SCENE_WIDTH } from '../../lib/scene';
 
 // レーンの本数
 export const LANE_COUNT = 5;
