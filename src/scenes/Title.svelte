@@ -10,8 +10,9 @@
 
   let { onstart }: { onstart: (track: Track) => void } = $props();
 
-  // スタート操作から音声の再生開始までの遅らせ時間(ms)。フェード後に Play の画面を認識できる程度の間を置く（仮置き）
-  const LEAD_IN = 2000;
+  // 仮の音源 sample.mp3 のテンポと拍子。1 小節目の頭は音声の先頭（0ms）
+  // 再生の遅らせ時間（leadIn）は 1 小節の時間となる（src/lib/leadIn.ts）
+  const SAMPLE_TEMPO = { bpm: 120, beatsPerBar: 4 };
 
   // 配置（論理座標）。Scene 内コンポーネントは中心を原点として描画されるため、コンポーネントの中心の位置を指定する
   const CENTER_X = SCENE_WIDTH / 2;
@@ -64,7 +65,7 @@
 
     let started: ReturnType<typeof startTrack>;
     try {
-      started = startTrack(audioBuffer, LEAD_IN);
+      started = startTrack(audioBuffer, SAMPLE_TEMPO);
     } catch (error) {
       failStart(error);
       return;

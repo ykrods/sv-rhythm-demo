@@ -4,10 +4,16 @@
   import bgUrl from '../assets/bg.webp';
   import Lanes from './play/Lanes.svelte';
   import JudgementBar from './play/JudgementBar.svelte';
+  import Barlines from './play/Barlines.svelte';
+  import { barDuration } from '../lib/barDuration';
+  import { leadIn } from '../lib/leadIn';
   import { toAudioTime } from './play/toAudioTime';
   import type { Track } from '../types';
 
   let { track }: { track: Track } = $props();
+
+  const trackLeadIn = $derived(leadIn(track));
+  const trackBarDuration = $derived(barDuration(track.bpm, track.beatsPerBar));
 
   // 音声の先頭を 0 とする再生位置(ms)。leadIn の間は負の値になる
   let audioTime = $state<number>();
@@ -15,7 +21,7 @@
   $effect(() => {
     let frameId = 0;
     const update = () => {
-      audioTime = toAudioTime(track.audioContext.currentTime, track.leadIn);
+      audioTime = toAudioTime(track.audioContext.currentTime, trackLeadIn);
       frameId = requestAnimationFrame(update);
     };
     frameId = requestAnimationFrame(update);
@@ -46,6 +52,11 @@
   <g transform="translate({CENTER_X} {JUDGEMENT_BAR_Y})">
     <Lanes />
   </g>
+  {#if audioTime !== undefined}
+    <g transform="translate({CENTER_X} {JUDGEMENT_BAR_Y})">
+      <Barlines {audioTime} barDuration={trackBarDuration} />
+    </g>
+  {/if}
   <g transform="translate({CENTER_X} {JUDGEMENT_BAR_Y})">
     <JudgementBar />
   </g>

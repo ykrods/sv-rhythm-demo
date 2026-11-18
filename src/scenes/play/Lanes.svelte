@@ -1,6 +1,6 @@
 <script lang="ts">
   import { SCENE_HEIGHT, SCENE_WIDTH } from '../../lib/scene';
-  import { JUDGEMENT_BAR_Y, LANE_COUNT, LANE_WIDTH } from './lane';
+  import { JUDGEMENT_BAR_Y, LANE_COUNT, LANE_FADE_LENGTH, LANE_WIDTH } from './lane';
   import { project } from './project';
   import { depthAtY } from './depthAtY';
 
@@ -11,9 +11,6 @@
   // レーン上端と下端（Scene の下端）の奥行き
   const TOP_DEPTH = 1;
   const BOTTOM_DEPTH = depthAtY(SCENE_HEIGHT - JUDGEMENT_BAR_Y);
-
-  // 上端からフェードアウトが終わる（不透明になる）までの長さ
-  const FADE_LENGTH = SCENE_HEIGHT * 0.15;
 
   const topY = project(0, TOP_DEPTH).y;
 
@@ -49,7 +46,7 @@
       x1="0"
       y1={topY}
       x2="0"
-      y2={topY + FADE_LENGTH}
+      y2={topY + LANE_FADE_LENGTH}
     >
       <stop offset="0" stop-color="#fff" stop-opacity="0" />
       <stop offset="1" stop-color="#fff" stop-opacity="1" />

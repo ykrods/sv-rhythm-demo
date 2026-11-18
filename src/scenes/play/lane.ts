@@ -14,3 +14,6 @@ export const LANE_TOP_Y = SCENE_HEIGHT * 0.2;
 
 // レーン上端での縮小率（判定バーの位置での幅に対する割合）
 export const LANE_TOP_SCALE = 0.25;
+
+// レーン上端からフェードアウトが終わる（不透明になる）までの長さ（論理座標）
+export const LANE_FADE_LENGTH = SCENE_HEIGHT * 0.15;
