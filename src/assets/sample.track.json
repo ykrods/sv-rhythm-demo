@@ -1,0 +1,14 @@
+{
+  "bpm": 120,
+  "beatsPerBar": 4,
+  "notes": [
+    { "hitTime": 2000, "lane": 0 },
+    { "hitTime": 2250, "lane": 0 },
+    { "hitTime": 2500, "lane": 0 },
+    { "hitTime": 2750, "lane": 0 },
+    { "hitTime": 3000, "lane": 1 },
+    { "hitTime": 3250, "lane": 2 },
+    { "hitTime": 3500, "lane": 3 },
+    { "hitTime": 3750, "lane": 4 }
+  ]
+}

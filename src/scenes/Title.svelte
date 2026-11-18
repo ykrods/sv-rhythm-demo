@@ -3,22 +3,21 @@
   import bgUrl from '../assets/bg.webp';
   import Logo from './title/Logo.svelte';
   import StartButton from './title/StartButton.svelte';
-  import sampleUrl from '../assets/sample.mp3';
   import { loadAudioBuffer } from './title/loadAudioBuffer';
   import { startTrack } from './title/startTrack';
+  import { loadTrackData } from './title/loadTrackData';
   import type { Track } from '../types';
 
   let { onstart }: { onstart: (track: Track) => void } = $props();
-
-  // 仮の音源 sample.mp3 のテンポと拍子。1 小節目の頭は音声の先頭（0ms）
-  // 再生の遅らせ時間（leadIn）は 1 小節の時間となる（src/lib/leadIn.ts）
-  const SAMPLE_TEMPO = { bpm: 120, beatsPerBar: 4 };
 
   // 配置（論理座標）。Scene 内コンポーネントは中心を原点として描画されるため、コンポーネントの中心の位置を指定する
   const CENTER_X = SCENE_WIDTH / 2;
   const LOGO_Y = SCENE_HEIGHT * 0.3;
   const BUTTON_Y = SCENE_HEIGHT * 0.65;
   const HINT_Y = SCENE_HEIGHT * 0.75;
+
+  // 今回は曲・譜面が固定なので同期的にデータを読み込む
+  const trackData = loadTrackData();
 
   // 読み込み済みの音源。読み込み中・読み込み失敗の間は undefined
   let audioBuffer: AudioBuffer | undefined;
@@ -28,7 +27,7 @@
 
   function load() {
     loadFailed = false;
-    loadAudioBuffer(sampleUrl).then(
+    loadAudioBuffer(trackData.audioUrl).then(
       (buffer) => {
         audioBuffer = buffer;
       },
@@ -65,7 +64,7 @@
 
     let started: ReturnType<typeof startTrack>;
     try {
-      started = startTrack(audioBuffer, SAMPLE_TEMPO);
+      started = startTrack(audioBuffer, trackData);
     } catch (error) {
       failStart(error);
       return;
