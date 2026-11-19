@@ -33,13 +33,24 @@ lint のルールは `biome.json`、ファイルの配置規則や設計方針�
 - 関数・`.ts` ファイルの分割は `docs/architecture.md`「ソースコードの配置と分割」、Svelte コンポーネントの分割は「Svelte コンポーネント」を参照する
 - 行数制限を lint のルールを無効化（`biome-ignore`）によって回避しない
 
-## lint のルールの無効化
-- 原則として lint のルールに従い、`biome-ignore` で回避しない
-- 例外: 実装上の理由があってルールに反する場合に限り、`biome-ignore` を使ってよい
-  - 対象のルールを限定し、`biome-ignore <ルール名>: <理由>` の形でルールに反する理由を書く
+## lint・Svelte コンパイラの警告の無効化
+lint（`npm run lint`）のルールと、svelte-check（`npm run check`）が出す Svelte コンパイラの警告（a11y など）を対象とする。
+
+- 原則として lint のルール・Svelte コンパイラの警告に従い、`biome-ignore`・`svelte-ignore` で回避しない
+- 例外: 実装上の理由があってルール・警告に反する場合に限り、`biome-ignore`・`svelte-ignore` を使ってよい
+  - 対象のルール・警告を限定し、ルール・警告に反する理由を以下の形で書く
+    - lint: `biome-ignore <ルール名>: <理由>`
+    - Svelte コンパイラ: `svelte-ignore <警告のコード>: <理由>`
   - 例: SVG の中では `<button>` を使えないため、SVG の要素に `role="button"` を付ける場合
 
     ```svelte
     <!-- biome-ignore lint/a11y/useSemanticElements: SVG の中では <button> を使えないため -->
     <g role="button" tabindex="0" ...>
+    ```
+
+  - 例: キー入力で同じ操作ができる場合に、svg 全体でポインタの押下を受ける場合
+
+    ```svelte
+    <!-- svelte-ignore a11y_no_static_element_interactions: キー入力（a〜g）で同じ操作ができ、ポインタの操作は補助的な入力手段のため -->
+    <svg onpointerdown={...}>
     ```
