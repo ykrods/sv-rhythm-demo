@@ -1,2 +1,2 @@
 // 流れる要素（小節線・ノーツ）がレーン上端（奥行き 1）から判定バー（奥行き 0）に達するまでの時間(ms)（仮置き）
-export const TRAVEL_TIME = 1500;
+export const TRAVEL_TIME = 4000;
