@@ -29,5 +29,8 @@ export type Track = {
 /** Track のマスターデータ */
 export type TrackData = Omit<Track, 'audioContext' | 'source'>;
 
+/** 判定（ノーツに対する押下のタイミングの評価） */
+export type Judgement = 'great' | 'good' | 'bad' | 'miss';
+
 /** Scene（Stage 上に表示される画面の単位）の識別子 */
 export type SceneId = 'title' | 'play';
