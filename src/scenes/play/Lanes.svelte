@@ -2,23 +2,19 @@
   import { SCENE_HEIGHT, SCENE_WIDTH } from '../../lib/scene';
   import { JUDGEMENT_BAR_Y, LANE_COUNT, LANE_FADE_LENGTH, LANE_WIDTH } from './lane';
   import { project } from './project';
-  import { depthAtY } from './depthAtY';
+  import { LANE_BOTTOM_DEPTH, LANE_TOP_DEPTH } from './laneDepth';
 
   // 奥行きのない座標での、レーン全体の左右端の x
   const LEFT = -SCENE_WIDTH / 2;
   const RIGHT = SCENE_WIDTH / 2;
 
-  // レーン上端と下端（Scene の下端）の奥行き
-  const TOP_DEPTH = 1;
-  const BOTTOM_DEPTH = depthAtY(SCENE_HEIGHT - JUDGEMENT_BAR_Y);
-
-  const topY = project(0, TOP_DEPTH).y;
+  const topY = project(0, LANE_TOP_DEPTH).y;
 
   const backgroundPoints = [
-    project(LEFT, TOP_DEPTH),
-    project(RIGHT, TOP_DEPTH),
-    project(RIGHT, BOTTOM_DEPTH),
-    project(LEFT, BOTTOM_DEPTH),
+    project(LEFT, LANE_TOP_DEPTH),
+    project(RIGHT, LANE_TOP_DEPTH),
+    project(RIGHT, LANE_BOTTOM_DEPTH),
+    project(LEFT, LANE_BOTTOM_DEPTH),
   ]
     .map((p) => `${p.x},${p.y}`)
     .join(' ');
@@ -26,7 +22,7 @@
   // レーンの両端と間の境界線
   const borders = Array.from({ length: LANE_COUNT + 1 }, (_, i) => {
     const x = LEFT + LANE_WIDTH * i;
-    return { top: project(x, TOP_DEPTH), bottom: project(x, BOTTOM_DEPTH) };
+    return { top: project(x, LANE_TOP_DEPTH), bottom: project(x, LANE_BOTTOM_DEPTH) };
   });
 </script>
 

@@ -2,7 +2,7 @@
   import { SCENE_HEIGHT, SCENE_WIDTH } from '../../lib/scene';
   import { JUDGEMENT_BAR_Y, LANE_FADE_LENGTH } from './lane';
   import { project } from './project';
-  import { depthAtY } from './depthAtY';
+  import { LANE_BOTTOM_DEPTH, LANE_TOP_DEPTH } from './laneDepth';
   import { depthAtTime } from './depthAtTime';
   import { barTimesBetween } from './barTimesBetween';
   import { TRAVEL_TIME } from './travel';
@@ -13,17 +13,13 @@
   const LEFT = -SCENE_WIDTH / 2;
   const RIGHT = SCENE_WIDTH / 2;
 
-  // 表示範囲の奥行き（レーン上端と Scene の下端）
-  const TOP_DEPTH = 1;
-  const BOTTOM_DEPTH = depthAtY(SCENE_HEIGHT - JUDGEMENT_BAR_Y);
-
-  const topY = project(0, TOP_DEPTH).y;
+  const topY = project(0, LANE_TOP_DEPTH).y;
 
   // 表示範囲内の小節線。奥行きから時刻の範囲を求め（time = audioTime + depth * TRAVEL_TIME）、各時刻を投影する
   const barlines = $derived(
     barTimesBetween(
-      audioTime + BOTTOM_DEPTH * TRAVEL_TIME,
-      audioTime + TOP_DEPTH * TRAVEL_TIME,
+      audioTime + LANE_BOTTOM_DEPTH * TRAVEL_TIME,
+      audioTime + LANE_TOP_DEPTH * TRAVEL_TIME,
       barDuration,
     ).map((time) => {
       const depth = depthAtTime(time, audioTime);

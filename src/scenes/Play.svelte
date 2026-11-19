@@ -5,6 +5,7 @@
   import Lanes from './play/Lanes.svelte';
   import JudgementBar from './play/JudgementBar.svelte';
   import Barlines from './play/Barlines.svelte';
+  import Notes from './play/Notes.svelte';
   import { barDuration } from '../lib/barDuration';
   import { leadIn } from '../lib/leadIn';
   import { toAudioTime } from './play/toAudioTime';
@@ -60,6 +61,12 @@
   <g transform="translate({CENTER_X} {JUDGEMENT_BAR_Y})">
     <JudgementBar />
   </g>
+  <!-- ノーツは判定バーに重なる瞬間に隠れないよう、判定バーの上に重ねる -->
+  {#if audioTime !== undefined}
+    <g transform="translate({CENTER_X} {JUDGEMENT_BAR_Y})">
+      <Notes {audioTime} notes={track.notes} />
+    </g>
+  {/if}
 
   <!-- 開発時のみ、再生位置の確認用に表示する -->
   {#if import.meta.env.DEV && audioTime !== undefined}
