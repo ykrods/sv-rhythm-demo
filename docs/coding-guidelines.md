@@ -48,9 +48,11 @@ lint（`npm run lint`）のルールと、svelte-check（`npm run check`）が�
     <g role="button" tabindex="0" ...>
     ```
 
-  - 例: キー入力で同じ操作ができる場合に、svg 全体でポインタの押下を受ける場合
+- `{@attach}` などでイベントを登録し、Svelte コンパイラの警告の対象にならない場合も、警告に相当する懸念があるときは理由をコメントで書く
+  - 例: キー入力で同じ操作ができる場合に、svg 全体でポインタの押下を受ける場合（`src/scenes/play/LaneInput.svelte.ts`）
 
-    ```svelte
-    <!-- svelte-ignore a11y_no_static_element_interactions: キー入力（a〜g）で同じ操作ができ、ポインタの操作は補助的な入力手段のため -->
-    <svg onpointerdown={...}>
+    ```ts
+    // アクセシビリティを考慮すると html のボタン要素などを利用することが望ましいが、
+    // 今回はキー入力（a〜g）で同じ操作ができ、ポインタの操作は補助的な入力手段のため良いものとする
+    on(svg, 'pointerdown', (e) => this.#handlePointerdown(svg, e as PointerEvent)),
     ```

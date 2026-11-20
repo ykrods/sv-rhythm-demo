@@ -4,7 +4,7 @@
   import { project } from './project';
   import { LANE_BOTTOM_DEPTH } from './laneDepth';
 
-  // 押下の受け付けは Play が行い、このコンポーネントは見た目のみを担う
+  // 押下の受け付けは LaneInput（Play が持つ）が行い、このコンポーネントは見た目のみを担う
   let { pressed }: { pressed: boolean[] } = $props();
 
   // キーの割り当ての表示

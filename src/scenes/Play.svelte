@@ -13,15 +13,12 @@
   import { leadIn } from '../lib/leadIn';
   import { toAudioTime } from './play/toAudioTime';
   import { judge } from './play/judge';
+  import { LaneInput } from './play/LaneInput.svelte';
   import { findTargetNote } from './play/findTargetNote';
   import { findMissedNotes } from './play/findMissedNotes';
-  import { laneAtPoint } from './play/laneAtPoint';
   import type { Judgement, Note, Track } from '../types';
 
   let { track }: { track: Track } = $props();
-
-  // レーン 0〜4 に割り当てるキー（event.code）。キーボード配列・IME の状態によらず物理的な位置で判別する
-  const LANE_KEYS = ['KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG'];
 
   const trackLeadIn = $derived(leadIn(track));
   const trackBarDuration = $derived(barDuration(track.bpm, track.beatsPerBar));
@@ -33,14 +30,7 @@
   const judged = new SvelteMap<Note, Judgement>();
   // レーンごとの最新の判定の結果
   const results = $state<(JudgementResult | undefined)[]>(Array(LANE_COUNT).fill(undefined));
-  // キーで押下中のレーン
-  const keyPressed = $state<boolean[]>(Array(LANE_COUNT).fill(false));
-  // ポインタ（pointerId）ごとの押下中のレーン
-  const pointerLanes = new SvelteMap<number, number>();
-  // レーンごとの押下中かどうか（キーまたはポインタ）
-  const pressed = $derived(
-    keyPressed.map((key, lane) => key || [...pointerLanes.values()].includes(lane)),
-  );
+
   // 表示するノーツ。押下で判定されたノーツは消し、Miss のノーツは下端まで流す
   const visibleNotes = $derived(
     track.notes.filter((note) => {
@@ -48,8 +38,6 @@
       return judgement === undefined || judgement === 'miss';
     }),
   );
-
-  let svg: SVGSVGElement;
 
   function setResult(note: Note, judgement: Judgement, time: number) {
     judged.set(note, judgement);
@@ -65,40 +53,7 @@
     const judgement = judge(note.hitTime, inputTime);
     if (judgement) setResult(note, judgement, inputTime);
   }
-
-  function handleKeydown(event: KeyboardEvent) {
-    const lane = LANE_KEYS.indexOf(event.code);
-    if (lane < 0 || event.repeat) return;
-    keyPressed[lane] = true;
-    press(lane);
-  }
-
-  function handleKeyup(event: KeyboardEvent) {
-    const lane = LANE_KEYS.indexOf(event.code);
-    if (lane < 0) return;
-    keyPressed[lane] = false;
-  }
-
-  // ウィンドウのフォーカスが外れると keyup を受け取れないため、押下中のキーをすべて離した扱いにする
-  function handleBlur() {
-    keyPressed.fill(false);
-  }
-
-  function handlePointerdown(event: PointerEvent) {
-    if (event.pointerType === 'mouse' && event.button !== 0) return;
-    const ctm = svg.getScreenCTM();
-    if (!ctm) return;
-    const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(ctm.inverse());
-    const lane = laneAtPoint(point.x, point.y);
-    if (lane === undefined) return;
-    // 押下中に別のレーンへ動かしても、押下を始めたレーンのままとする
-    pointerLanes.set(event.pointerId, lane);
-    press(lane);
-  }
-
-  function handlePointerup(event: PointerEvent) {
-    pointerLanes.delete(event.pointerId);
-  }
+  const laneInput = new LaneInput(press);
 
   $effect(() => {
     let frameId = 0;
@@ -123,17 +78,7 @@
   const CENTER_X = SCENE_WIDTH / 2;
 </script>
 
-<svelte:window
-  onkeydown={handleKeydown}
-  onkeyup={handleKeyup}
-  onblur={handleBlur}
-  onpointerup={handlePointerup}
-  onpointercancel={handlePointerup}
-/>
-
-<!-- 押下範囲の上にノーツなどが重なるため、svg 全体でポインタを受け、座標からレーンを求める -->
-<!-- svelte-ignore a11y_no_static_element_interactions: キー入力（a〜g）で同じ操作ができ、ポインタの操作は補助的な入力手段のため -->
-<svg bind:this={svg} viewBox="0 0 {SCENE_WIDTH} {SCENE_HEIGHT}" onpointerdown={handlePointerdown}>
+<svg viewBox="0 0 {SCENE_WIDTH} {SCENE_HEIGHT}" {@attach laneInput.attach}>
   <title>Scene: Play</title>
 
   <!-- 画像の読み込みが終わるまでの下地 -->
@@ -150,7 +95,7 @@
   </g>
   <!-- 入力ボタンの光は判定バーより下のレーン面の表現のため、レーンの直上に置く -->
   <g transform="translate({CENTER_X} {JUDGEMENT_BAR_Y})">
-    <LaneButtons {pressed} />
+    <LaneButtons pressed={laneInput.pressed} />
   </g>
   {#if audioTime !== undefined}
     <g transform="translate({CENTER_X} {JUDGEMENT_BAR_Y})">
